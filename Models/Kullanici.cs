@@ -27,8 +27,8 @@ namespace Banka
             KullaniciNo = kullaniciNo;
             Sifre = sifre;
             Bakiye = bakiye;
-            Rol = rol;
-            OlusturmaTarihi = tarih;
+            Rol = KullaniciRolu.Musteri;
+            OlusturmaTarihi = DateTime.Now;
             KilitliMi = false;
         }
     }

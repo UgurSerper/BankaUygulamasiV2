@@ -2,9 +2,15 @@
 {
     public class Program
     {
+        public void MusteriMenu()
+        {
+
+        }
+
         public void AnaMenu()
         {
             KullaniciServices ks = new KullaniciServices();
+            
             int secim = 0;
 
             while (true)
@@ -23,7 +29,7 @@
 
                 switch (secim)
                 {
-                    case 1: ks.GirisYap(); break;
+                    case 1: Kullanici aktifKullanici = ks.GirisYap(); if (aktifKullanici != null) {ks.MusteriMenu} break;
                     
                     case 2: ks.KullaniciEkle(); break;
 
