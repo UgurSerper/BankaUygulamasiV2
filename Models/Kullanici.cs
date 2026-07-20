@@ -4,25 +4,32 @@ namespace Banka
 {
     public class Kullanici
     {
-        public string Ad {get;set;}
-        public string Soyad{get;set;}
-        public int KullaniciNo {get;set;}
-        public string Sifre{get;set;}
-        public decimal Bakiye{get;set;}
-        public KullaniciRolu Rol{get;set;}
-        public DateTime OlusturmaTarihi{get;set;}
-        public bool KilitliMi{get;set;}
-    }
-    public Kullanici(string ad, string soyad,int kullaniciNo,string sifre,decimal bakiye,KullaniciRolu rol,DateTime tarih)
+        public string Ad { get; set; }
+        public string Soyad { get; set; }
+        public int KullaniciNo { get; set; }
+        public string Sifre { get; set; }
+        public decimal Bakiye { get; set; }
+        public KullaniciRolu Rol { get; set; }
+        public DateTime OlusturmaTarihi { get; set; }
+        public bool KilitliMi { get; set; }
+
+        public Kullanici(
+            string ad,
+            string soyad,
+            int kullaniciNo,
+            string sifre,
+            decimal bakiye,
+            KullaniciRolu rol,
+            DateTime tarih)
         {
             Ad = ad;
             Soyad = soyad;
-            KullaniciNo = KullaniciNo;
-            Sifre=sifre;
-            Bakiye=bakiye;
+            KullaniciNo = kullaniciNo;
+            Sifre = sifre;
+            Bakiye = bakiye;
             Rol = rol;
             OlusturmaTarihi = tarih;
             KilitliMi = false;
         }
-
+    }
 }
