@@ -12,6 +12,7 @@ namespace Banka
         public KullaniciRolu Rol { get; set; }
         public DateTime OlusturmaTarihi { get; set; }
         public bool KilitliMi { get; set; }
+        public List<Islem> IslemGecmisi{get;set;}
 
         public Kullanici(
             string ad,
@@ -28,6 +29,7 @@ namespace Banka
             Rol = KullaniciRolu.Musteri;
             OlusturmaTarihi = DateTime.Now;
             KilitliMi = false;
+            IslemGecmisi = new List<Islem>();
         }
     }
 }

@@ -20,6 +20,9 @@ namespace Banka
 
             aktifKullanici.Bakiye+=yatirilacakBakiye;
 
+            Islem islem = new Islem(IslemTipi.Yatir,DateTime.Now,yatirilacakBakiye,"Para Yatırıldı");
+            aktifKullanici.IslemGecmisi.Add(islem);
+
             Console.WriteLine($"{yatirilacakBakiye} TL başarıyla çekildi.");
             Console.WriteLine($"Güncel Bakiyeniz : {aktifKullanici.Bakiye} TL");
 
@@ -44,6 +47,9 @@ namespace Banka
                 return;
             }   
             aktifKullanici.Bakiye-=cekilecekBakiye;
+
+            Islem islem = new Islem(IslemTipi.Cek,DateTime.Now,cekilecekBakiye,"Para Çekildi");
+            aktifKullanici.IslemGecmisi.Add(islem);
 
             Console.WriteLine($"{cekilecekBakiye} TL başarıyla çekildi.");
             Console.WriteLine($"Güncel Bakiyeniz : {aktifKullanici.Bakiye} TL");
@@ -122,7 +128,14 @@ namespace Banka
         }
         public void IslemGecmisi(Kullanici aktifKullanici)
         {
-            
+            foreach(Islem islem in aktifKullanici.IslemGecmisi)
+            {
+                Console.WriteLine($"İşlem : {islem.IslemTipi}");
+                Console.WriteLine($"Tarih : {islem.Tarih}");
+                Console.WriteLine($"Tutar : {islem.Tutar}");
+                Console.WriteLine($"Açıklama : {islem.Aciklama}");
+                Console.WriteLine();
+            }
         }
     }
 }
