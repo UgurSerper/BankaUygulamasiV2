@@ -2,6 +2,7 @@ namespace Banka
 {
     public class BankaServices
     {
+        
         public void ParaYatir(Kullanici aktifKullanici)
         {
             decimal yatirilacakBakiye =0;
@@ -49,9 +50,67 @@ namespace Banka
 
 
         }
-        public void Havale(Kullanici aktifKullanici)
+        public void Havale(Kullanici aktifKullanici,List<Kullanici> kullanicilar)
         {
+            Kullanici? aliciKullanici = null;
+            int aliciKullaniciNo = 0;
+            decimal aktarilacakTutar ;
             
+
+            Console.Write("Alici Kullanici No Giriniz : ");
+            if (!int.TryParse(Console.ReadLine(), out aliciKullaniciNo))
+            {
+                Console.WriteLine("Gecerli bir sayi giriniz");
+                return;
+            }
+            if (aliciKullaniciNo < 0)
+            {
+                Console.WriteLine("negatif sayı olamaz alici numarası");
+                return;
+            }
+            if(aliciKullaniciNo == aktifKullanici.KullaniciNo)
+                {
+                    Console.WriteLine("Kendinize para gödermezsiniz.");
+                    return;
+                }
+
+            Console.Write("Gonderilecek Tutar : ");
+            if (!decimal.TryParse(Console.ReadLine(), out aktarilacakTutar))
+            {
+                Console.WriteLine("Gecerli bir sayi giriniz");
+                return;
+            }
+            if(aktarilacakTutar < 0)
+            {
+                Console.WriteLine("aktarilacak Tutar negatif olamaz.");
+                return;
+            }
+            if(aktifKullanici.Bakiye< aktarilacakTutar)
+            {
+                Console.WriteLine("aktarilacak Tutar bakiyeden yüksek olamaz.");
+                return;
+            }
+            foreach (Kullanici kullanici in kullanicilar)
+            {
+                if(kullanici.KullaniciNo == aliciKullaniciNo)
+                {
+                    aliciKullanici = kullanici;
+                    break;
+                }
+
+            }
+            if (aliciKullanici == null)
+            {
+                Console.WriteLine("Kullanici bulunamadı.");
+                return;
+            }
+
+            aktifKullanici.Bakiye-=aktarilacakTutar;
+            aliciKullanici.Bakiye+=aktarilacakTutar;
+
+            Console.WriteLine($"Güncel Bakiyen : {aktifKullanici.Bakiye}");
+            Console.WriteLine($"Gönderilen Tutar {aktarilacakTutar}");
+
         }
         public void EFT(Kullanici aktifKullanici)
         {

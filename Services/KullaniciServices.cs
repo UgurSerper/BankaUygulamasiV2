@@ -18,19 +18,34 @@ namespace Banka
         public void KullaniciEkle()
         {
             
-            string ad, soyad, sifre;
+            string? ad, soyad, sifre;
             decimal bakiye;
             int kullanicinNo = 0;
             KullaniciRolu kullaniciRolu = KullaniciRolu.Musteri;
 
             Console.Write("Ad : ");
             ad = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(ad))
+            {
+                Console.WriteLine("Ad boş olamaz");
+                return;
+            }
 
             Console.Write("Soyad : ");
             soyad = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(soyad))
+            {
+                Console.WriteLine("Soyad boş olamaz");
+                return;
+            }
             
             Console.Write("Sifre : ");
             sifre = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(sifre))
+            {
+                Console.WriteLine("Sifre boş olamaz");
+                return;
+            }
 
             Console.WriteLine("Bakiye : ");
             if (!decimal.TryParse(Console.ReadLine(), out bakiye))
@@ -81,7 +96,7 @@ namespace Banka
         public Kullanici GirisYap()
         {
             int kullaniciNo;
-            string sifre;
+            string? sifre;
             
 
             Console.Write("Kullanici No : ");
@@ -132,6 +147,10 @@ namespace Banka
         public void HesapKilidiniAc()
         {
             
+        }
+       public List<Kullanici> Kullanicilar
+        {
+            get {return kullanicilar;}
         }
     }
 }

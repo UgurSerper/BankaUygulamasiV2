@@ -2,7 +2,7 @@
 {
     public class Program
     {
-        public void MusteriMenu(Kullanici aktifKullanici)
+        public void MusteriMenu(Kullanici aktifKullanici, KullaniciServices ks)
         {
             BankaServices bk = new BankaServices();
             int secim = 0;
@@ -29,7 +29,7 @@
                     case 1: bk.BakiyeGoster(aktifKullanici);break;
                     case 2: bk.ParaYatir(aktifKullanici);break;
                     case 3: bk.ParaCek(aktifKullanici);break;
-                    case 4: bk.Havale(aktifKullanici);break;
+                    case 4: bk.Havale(aktifKullanici ,ks.Kullanicilar);break;
                     case 5: bk.IslemGecmisi(aktifKullanici);break;
                     case 0: Console.WriteLine("Cıkıs yapılıyor...");return;
                     default:Console.WriteLine("lütfen geçerli bir secim giriniz."); break;
@@ -59,7 +59,7 @@
 
                 switch (secim)
                 {
-                    case 1: Kullanici aktifKullanici = ks.GirisYap(); if (aktifKullanici != null) {MusteriMenu(aktifKullanici);} break;
+                    case 1: Kullanici aktifKullanici = ks.GirisYap(); if (aktifKullanici != null) {MusteriMenu(aktifKullanici,ks);} break;
                     
                     case 2: ks.KullaniciEkle(); break;
 
