@@ -11,7 +11,7 @@ namespace Banka
                 Console.WriteLine("Geçerli bir sayı giriniz.");
                 return;
             }
-            if(yatirilacakBakiye< 0)
+            if(yatirilacakBakiye<= 0)
             {
                 Console.WriteLine("Yatırılacak bakiye negatif olmaz.");
                 return;
@@ -49,19 +49,19 @@ namespace Banka
 
 
         }
-        public void Havale()
+        public void Havale(Kullanici aktifKullanici)
         {
             
         }
-        public void EFT()
+        public void EFT(Kullanici aktifKullanici)
         {
             
         }
-        public void BakiyeGoster()
+        public void BakiyeGoster(Kullanici aktifKullanici)
         {
-            
+            Console.WriteLine($"Bakiyeniz : {aktifKullanici.Bakiye}");
         }
-        public void IslemGecmisi()
+        public void IslemGecmisi(Kullanici aktifKullanici)
         {
             
         }

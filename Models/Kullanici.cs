@@ -18,9 +18,7 @@ namespace Banka
             string soyad,
             int kullaniciNo,
             string sifre,
-            decimal bakiye,
-            KullaniciRolu rol,
-            DateTime tarih)
+            decimal bakiye)
         {
             Ad = ad;
             Soyad = soyad;

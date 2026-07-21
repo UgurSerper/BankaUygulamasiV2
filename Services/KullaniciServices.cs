@@ -6,9 +6,9 @@ namespace Banka
 
         public KullaniciServices() 
         { 
-            Kullanici musteri = new Kullanici("Ugur","Aslan",1,"5656aslan",1000.00m,KullaniciRolu.Musteri, new DateTime(2025,1,1));
-            Kullanici musteri2 = new Kullanici("Ibrahim","Aslan",2,"5656aslan",1000.00m,KullaniciRolu.Musteri, new DateTime(2024,1,1));
-            Kullanici musteri3 = new Kullanici("Musa","Aslan",3,"5656aslan",1000.00m,KullaniciRolu.Musteri, new DateTime(2023,1,1));
+            Kullanici musteri = new Kullanici("Ugur","Aslan",1,"5656aslan",1000.00m);
+            Kullanici musteri2 = new Kullanici("Ibrahim","Aslan",2,"5656aslan",1000.00m);
+            Kullanici musteri3 = new Kullanici("Musa","Aslan",3,"5656aslan",1000.00m);
 
             kullanicilar.Add(musteri);
             kullanicilar.Add(musteri2);
@@ -58,7 +58,7 @@ namespace Banka
 
             kullanicinNo = enBuyukKullaniciNo + 1;
 
-            Kullanici yeniKullanici = new Kullanici(ad, soyad, sifre, bakiye, kullanicinNo);
+            Kullanici yeniKullanici = new Kullanici(ad, soyad,kullanicinNo, sifre, bakiye );
 
             kullanicilar.Add(yeniKullanici);
 
@@ -67,7 +67,16 @@ namespace Banka
         }
         public void KullaniciListele()
         {
-            
+            foreach(Kullanici kullanici in kullanicilar)
+            {
+                Console.WriteLine($"Kullanici Adi : {kullanici.Ad}");
+                Console.WriteLine($"Kullanici Soyadi : {kullanici.Soyad}");
+                Console.WriteLine($"Kullanici Numarası : {kullanici.KullaniciNo}");
+                Console.WriteLine($"Kullanici Bakiyesi : {kullanici.Bakiye}");
+                Console.WriteLine($"Kullanici Olsturma Tarihi: {kullanici.OlusturmaTarihi}");
+                Console.WriteLine($"Kullanici Rolu : {kullanici.Rol}");
+                Console.WriteLine($"Hesap Kilitli Mi : {kullanici.KilitliMi}");
+            }
         }
         public Kullanici GirisYap()
         {

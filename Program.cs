@@ -2,9 +2,39 @@
 {
     public class Program
     {
-        public void MusteriMenu()
+        public void MusteriMenu(Kullanici aktifKullanici)
         {
+            BankaServices bk = new BankaServices();
+            int secim = 0;
 
+            while (true)
+            {
+                Console.WriteLine("===== Menu =====");
+                Console.WriteLine("1 - Bakiye Görüntüle");
+                Console.WriteLine("2 - Para Yatır");
+                Console.WriteLine("3 - Para Cek");
+                Console.WriteLine("4 - Havale");
+                Console.WriteLine("5 - Islem Geçmişi");
+                Console.WriteLine("0 - Çıkış");
+                Console.Write("Seçiminiz : ");
+
+                if(!int.TryParse(Console.ReadLine() ,out secim))
+                {
+                    Console.WriteLine("Lütfen geçerli b,r sayı giriniz");
+                    continue;
+                }
+
+                switch (secim)
+                {
+                    case 1: bk.BakiyeGoster(aktifKullanici);break;
+                    case 2: bk.ParaYatir(aktifKullanici);break;
+                    case 3: bk.ParaCek(aktifKullanici);break;
+                    case 4: bk.Havale(aktifKullanici);break;
+                    case 5: bk.IslemGecmisi(aktifKullanici);break;
+                    case 0: Console.WriteLine("Cıkıs yapılıyor...");return;
+                    default:Console.WriteLine("lütfen geçerli bir secim giriniz."); break;
+                }
+            }
         }
 
         public void AnaMenu()
@@ -29,7 +59,7 @@
 
                 switch (secim)
                 {
-                    case 1: Kullanici aktifKullanici = ks.GirisYap(); if (aktifKullanici != null) {ks.MusteriMenu} break;
+                    case 1: Kullanici aktifKullanici = ks.GirisYap(); if (aktifKullanici != null) {MusteriMenu(aktifKullanici);} break;
                     
                     case 2: ks.KullaniciEkle(); break;
 
