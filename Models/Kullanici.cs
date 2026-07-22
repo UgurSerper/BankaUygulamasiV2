@@ -19,14 +19,15 @@ namespace Banka
             string soyad,
             int kullaniciNo,
             string sifre,
-            decimal bakiye)
+            decimal bakiye,
+            KullaniciRolu rol)
         {
             Ad = ad;
             Soyad = soyad;
             KullaniciNo = kullaniciNo;
             Sifre = sifre;
             Bakiye = bakiye;
-            Rol = KullaniciRolu.Musteri;
+            Rol = rol;
             OlusturmaTarihi = DateTime.Now;
             KilitliMi = false;
             IslemGecmisi = new List<Islem>();

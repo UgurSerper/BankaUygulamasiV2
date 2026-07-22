@@ -6,13 +6,15 @@ namespace Banka
 
         public KullaniciServices() 
         { 
-            Kullanici musteri = new Kullanici("Ugur","Aslan",1,"5656aslan",1000.00m);
-            Kullanici musteri2 = new Kullanici("Ibrahim","Aslan",2,"5656aslan",1000.00m);
-            Kullanici musteri3 = new Kullanici("Musa","Aslan",3,"5656aslan",1000.00m);
+            Kullanici musteri = new Kullanici("Ugur","Aslan",1,"5656aslan",1000.00m,KullaniciRolu.Musteri);
+            Kullanici musteri2 = new Kullanici("Ibrahim","Aslan",2,"5656aslan",1000.00m,KullaniciRolu.Musteri);
+            Kullanici musteri3 = new Kullanici("Musa","Aslan",3,"5656aslan",1000.00m,KullaniciRolu.Musteri);
+            Kullanici admin = new Kullanici("Yakup","Aslan",4,"5656aslan",0,KullaniciRolu.Admin);
 
             kullanicilar.Add(musteri);
             kullanicilar.Add(musteri2);
             kullanicilar.Add(musteri3);
+            kullanicilar.Add(admin);
         }
 
         public void KullaniciEkle()
@@ -73,7 +75,7 @@ namespace Banka
 
             kullanicinNo = enBuyukKullaniciNo + 1;
 
-            Kullanici yeniKullanici = new Kullanici(ad, soyad,kullanicinNo, sifre, bakiye );
+            Kullanici yeniKullanici = new Kullanici(ad, soyad,kullanicinNo, sifre, bakiye ,KullaniciRolu.Musteri);
 
             kullanicilar.Add(yeniKullanici);
 

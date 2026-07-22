@@ -2,6 +2,35 @@
 {
     public class Program
     {
+        public void AdminMenu(Kullanici aktifKullanici , KullaniciServices ks)
+        {
+            int secim = 0;
+
+            while (true)
+            {
+                Console.WriteLine("===== Admin Menu =====");
+                Console.WriteLine("1 - Kullanici Sil");
+                Console.WriteLine("2 - Hesap Kilitle");
+                Console.WriteLine("3 - Hesap Aç");
+                Console.WriteLine("0 - Çıkış");
+                Console.Write("Seçiminiz : ");
+
+                if(!int.TryParse(Console.ReadLine() ,out secim))
+                {
+                    Console.WriteLine("Lütfen geçerli bir sayı giriniz");
+                    continue;
+                }
+
+                switch (secim)
+                {
+                    case 1: ks.KullaniciSil();break;
+                    case 2: ks.HesapKilitle();break;
+                    case 3: ks.HesapKilidiniAc();break;
+                    case 0: Console.WriteLine("Cıkıs yapılıyor...");return;
+                    default:Console.WriteLine("lütfen geçerli bir secim giriniz."); break;
+                }
+            }
+        }
         public void MusteriMenu(Kullanici aktifKullanici, KullaniciServices ks)
         {
             BankaServices bk = new BankaServices();
@@ -20,7 +49,7 @@
 
                 if(!int.TryParse(Console.ReadLine() ,out secim))
                 {
-                    Console.WriteLine("Lütfen geçerli b,r sayı giriniz");
+                    Console.WriteLine("Lütfen geçerli bir sayı giriniz");
                     continue;
                 }
 
@@ -59,7 +88,21 @@
 
                 switch (secim)
                 {
-                    case 1: Kullanici aktifKullanici = ks.GirisYap(); if (aktifKullanici != null) {MusteriMenu(aktifKullanici,ks);} break;
+                    case 1: 
+                    Kullanici aktifKullanici = ks.GirisYap(); 
+                    if (aktifKullanici != null)
+                    {
+                        if(aktifKullanici.Rol == KullaniciRolu.Admin)
+                        {
+                            AdminMenu(aktifKullanici,ks);
+                        }
+                            else
+                            {
+                                MusteriMenu(aktifKullanici,ks);
+                            }
+                    } 
+                     
+                    break;
                     
                     case 2: ks.KullaniciEkle(); break;
 
