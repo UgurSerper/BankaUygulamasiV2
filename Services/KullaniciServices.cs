@@ -17,10 +17,8 @@ namespace Banka
             kullanicilar.Add(musteri3);
             kullanicilar.Add(admin);
         }
-
         public void KullaniciEkle()
         {
-            
             string? ad, soyad, sifre;
             decimal bakiye;
             int kullanicinNo = 0;
@@ -92,14 +90,7 @@ namespace Banka
             }
             foreach(Kullanici kullanici in kullanicilar)
             {
-                Console.WriteLine("------------------------------------------------------");
-                Console.WriteLine($"Kullanici Adi : {kullanici.Ad}");
-                Console.WriteLine($"Kullanici Soyadi : {kullanici.Soyad}");
-                Console.WriteLine($"Kullanici Numarası : {kullanici.KullaniciNo}");
-                Console.WriteLine($"Kullanici Bakiyesi : {kullanici.Bakiye}");
-                Console.WriteLine($"Kullanici Olsturma Tarihi: {kullanici.OlusturmaTarihi}");
-                Console.WriteLine($"Kullanici Rolu : {kullanici.Rol}");
-                Console.WriteLine($"Hesap Kilitli Mi : {kullanici.KilitliMi}");
+                KullaniciBilgileriniGetir(kullanici);
             }
         }
         public void KililiKullaniciListele()
@@ -116,6 +107,11 @@ namespace Banka
             }
             foreach(Kullanici kullanici in kullanicilar.Where(k => k.KilitliMi))
             {
+               KullaniciBilgileriniGetir(kullanici);
+            }
+        }
+        private void KullaniciBilgileriniGetir(Kullanici kullanici)
+        {
                 Console.WriteLine("------------------------------------------------------");
                 Console.WriteLine($"Kullanici Adi : {kullanici.Ad}");
                 Console.WriteLine($"Kullanici Soyadi : {kullanici.Soyad}");
@@ -124,7 +120,6 @@ namespace Banka
                 Console.WriteLine($"Kullanici Olsturma Tarihi: {kullanici.OlusturmaTarihi}");
                 Console.WriteLine($"Kullanici Rolu : {kullanici.Rol}");
                 Console.WriteLine($"Hesap Kilitli Mi : {kullanici.KilitliMi}");
-            }
         }
         public Kullanici GirisYap()
         {
@@ -165,7 +160,6 @@ namespace Banka
         public void KullaniciSil()
         {
             int kullaniciNo;
-            Kullanici? silinecekKullanici = null;
             Console.WriteLine("kullanici No : ");
             if (!int.TryParse(Console.ReadLine(), out kullaniciNo))
             {
@@ -177,21 +171,14 @@ namespace Banka
                 Console.WriteLine("kullanici No negatif olamaz.");
                 return;
             }
-            foreach(Kullanici kullanici in kullanicilar)
-            {
-                if(kullanici.KullaniciNo == kullaniciNo)
-                {
-                    silinecekKullanici = kullanici;
-                    break;
-                }
-            }
-            if (silinecekKullanici == null)
+            Kullanici? kullanici = KullaniciBul(kullaniciNo);
+            if (kullanici == null)
             {
                 Console.WriteLine("Kullanici Bulunamadı Menuye Dönülüyor.");
                 return;
             }
 
-            int secim =0;
+            int secim;
             Console.WriteLine("1 - Evet");
             Console.WriteLine("2 - Hayır");
             Console.WriteLine("Seçiminiz : ");
@@ -202,7 +189,8 @@ namespace Banka
             }
             if(secim == 1)
             {
-                kullanicilar.Remove(silinecekKullanici);
+                kullanicilar.Remove(kullanici);
+                Console.WriteLine("Kullanıcı başarıyla silindi.");
             }
             else if(secim == 2)
             {
@@ -215,7 +203,10 @@ namespace Banka
                 return;
             }
             Console.WriteLine("Menuye Dönülüyor.");
-
+        }
+        private Kullanici? KullaniciBul(int kullaniciNo)
+        {
+            return kullanicilar.FirstOrDefault(k => k.KullaniciNo == kullaniciNo);
         }
         public void HesapKilitle(Kullanici aktifKullanici)
         {
@@ -226,13 +217,13 @@ namespace Banka
                 Console.WriteLine("Gecerli bir sayi giriniz");
                 return;
             }
-            if(kullaniciNo < 0)
+            if(kullaniciNo <= 0)
             {
-                Console.WriteLine("kullanici No negatif olamaz.");
+                Console.WriteLine("kullanici No negatif veya 0 olamaz.");
                 return;
             }
 
-            Kullanici? kullanici = kullanicilar.FirstOrDefault(k => k.KullaniciNo == kullaniciNo);
+            Kullanici? kullanici = KullaniciBul(kullaniciNo);
             if(kullanici == null)
             {
                 Console.WriteLine("Kullanici Bulunamadı");
@@ -264,7 +255,7 @@ namespace Banka
                 return;
             }
 
-            Kullanici? kullanici = kullanicilar.FirstOrDefault(k => k.KullaniciNo == kullaniciNo);
+            Kullanici? kullanici = KullaniciBul(kullaniciNo);
             if(kullanici == null)
             {
                 Console.WriteLine("Kullanici Bulunamadı Menuye Dönülüyor.");
