@@ -109,6 +109,11 @@ namespace Banka
                 Console.WriteLine("Kayıtlı kullanıcı bulunamadı");
                 return;
             }
+            if(!kullanicilar.Any(k => k.KilitliMi))
+            {
+                Console.WriteLine("kilitli kullanici bulunamadı");
+                return;
+            }
             foreach(Kullanici kullanici in kullanicilar.Where(k => k.KilitliMi))
             {
                 Console.WriteLine("------------------------------------------------------");

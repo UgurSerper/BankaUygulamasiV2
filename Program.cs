@@ -72,6 +72,8 @@
 
         public void AnaMenu()
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.BackgroundColor = ConsoleColor.Cyan;
             KullaniciServices ks = new KullaniciServices();
             
             int secim = 0;
