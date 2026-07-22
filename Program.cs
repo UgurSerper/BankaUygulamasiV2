@@ -12,6 +12,8 @@
                 Console.WriteLine("1 - Kullanici Sil");
                 Console.WriteLine("2 - Hesap Kilitle");
                 Console.WriteLine("3 - Hesap Kilidini Aç");
+                Console.WriteLine("4 - Kullanıcıları Listele");
+                Console.WriteLine("5 - Kilitli Kullanıcıları Listele");
                 Console.WriteLine("0 - Çıkış");
                 Console.Write("Seçiminiz : ");
 
@@ -26,6 +28,8 @@
                     case 1: ks.KullaniciSil();break;
                     case 2: ks.HesapKilitle(aktifKullanici);break;
                     case 3: ks.HesapKilidiniAc(aktifKullanici);break;
+                    case 4: ks.KullaniciListele();break;
+                    case 5: ks.KililiKullaniciListele();break;
                     case 0: Console.WriteLine("Cıkıs yapılıyor...");return;
                     default:Console.WriteLine("lütfen geçerli bir secim giriniz."); break;
                 }
