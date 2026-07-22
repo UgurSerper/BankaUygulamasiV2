@@ -140,15 +140,134 @@ namespace Banka
         }
         public void KullaniciSil()
         {
-            
+            int kullaniciNo;
+            Kullanici? silinecekKullanici = null;
+            Console.WriteLine("kullanici No : ");
+            if (!int.TryParse(Console.ReadLine(), out kullaniciNo))
+            {
+                Console.WriteLine("Gecerli bir sayi giriniz");
+                return;
+            }
+            if(kullaniciNo < 0)
+            {
+                Console.WriteLine("kullanici No negatif olamaz.");
+                return;
+            }
+            foreach(Kullanici kullanici in kullanicilar)
+            {
+                if(kullanici.KullaniciNo == kullaniciNo)
+                {
+                    silinecekKullanici = kullanici;
+                    break;
+                }
+            }
+            if (silinecekKullanici == null)
+            {
+                Console.WriteLine("Kullanici Bulunamadı Menuye Dönülüyor.");
+                return;
+            }
+
+            int secim =0;
+            Console.WriteLine("1 - Evet");
+            Console.WriteLine("2 - Hayır");
+            Console.WriteLine("Seçiminiz : ");
+            if (!int.TryParse(Console.ReadLine(), out secim))
+            {
+                Console.WriteLine("Gecerli bir sayi giriniz");
+                return;
+            }
+            if(secim == 1)
+            {
+                kullanicilar.Remove(silinecekKullanici);
+            }
+            else if(secim == 2)
+            {
+                Console.WriteLine("İşlem iptal ediliyor.");
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Geçersizs seçim");
+                return;
+            }
+            Console.WriteLine("Menuye Dönülüyor.");
+
         }
-        public void HesapKilitle()
+        public void HesapKilitle(Kullanici aktifKullanici)
         {
-            
+            int kullaniciNo;
+            Kullanici? kilitlenecekKullanici = null;
+            Console.WriteLine("kullanici No : ");
+            if (!int.TryParse(Console.ReadLine(), out kullaniciNo))
+            {
+                Console.WriteLine("Gecerli bir sayi giriniz");
+                return;
+            }
+            if(kullaniciNo < 0)
+            {
+                Console.WriteLine("kullanici No negatif olamaz.");
+                return;
+            }
+            foreach(Kullanici kullanici in kullanicilar)
+            {
+                if(kullanici.KullaniciNo == kullaniciNo)
+                {
+                    kilitlenecekKullanici = kullanici;
+                    if(kilitlenecekKullanici.KilitliMi == true)
+                    {
+                        Console.WriteLine("Kullanıcı zaten kilitli");
+                        return;
+                    }
+                    kilitlenecekKullanici.KilitliMi=true;
+                    Console.WriteLine("Kullanıcı kilitlendi.");
+                    Islem islem = new Islem(IslemTipi.KilitKaldir,DateTime.Now,0,$"Admin {kilitlenecekKullanici.KullaniciNo} Nolu Hesabı Kilitledi.");
+                    aktifKullanici.IslemGecmisi.Add(islem);
+                    return;
+                }
+            }
+            if (kilitlenecekKullanici == null)
+            {
+                Console.WriteLine("Kullanici Bulunamadı Menuye Dönülüyor.");
+                return;
+            }
         }
-        public void HesapKilidiniAc()
+        public void HesapKilidiniAc(Kullanici aktifKullanici)
         {
-            
+            int kullaniciNo;
+            Kullanici? kilitdiAcilacakKullanici = null;
+            Console.WriteLine("kullanici No : ");
+            if (!int.TryParse(Console.ReadLine(), out kullaniciNo))
+            {
+                Console.WriteLine("Gecerli bir sayi giriniz");
+                return;
+            }
+            if(kullaniciNo < 0)
+            {
+                Console.WriteLine("kullanici No negatif olamaz.");
+                return;
+            }
+            foreach(Kullanici kullanici in kullanicilar)
+            {
+                if(kullanici.KullaniciNo == kullaniciNo)
+                {
+                    kilitdiAcilacakKullanici = kullanici;
+                    if(kilitdiAcilacakKullanici.KilitliMi == false)
+                    {
+                        Console.WriteLine("Kullanıcı zaten açık.");
+                        return;
+                    }
+                    kilitdiAcilacakKullanici.KilitliMi=false;
+                    Console.WriteLine("Kullanıcı Kilidi Açıldı.");
+                    Islem islem = new Islem(IslemTipi.KilitAc,DateTime.Now,0,$"Admin {kilitdiAcilacakKullanici.KullaniciNo} Nolu Hesabı Kilitli Açtı.");
+                    aktifKullanici.IslemGecmisi.Add(islem);
+                    return;
+                }
+            }
+            if (kilitdiAcilacakKullanici == null)
+            {
+                Console.WriteLine("Kullanici Bulunamadı Menuye Dönülüyor.");
+                return;
+            }
         }
        public List<Kullanici> Kullanicilar
         {

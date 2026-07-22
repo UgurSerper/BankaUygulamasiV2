@@ -11,7 +11,7 @@
                 Console.WriteLine("===== Admin Menu =====");
                 Console.WriteLine("1 - Kullanici Sil");
                 Console.WriteLine("2 - Hesap Kilitle");
-                Console.WriteLine("3 - Hesap Aç");
+                Console.WriteLine("3 - Hesap Kilidini Aç");
                 Console.WriteLine("0 - Çıkış");
                 Console.Write("Seçiminiz : ");
 
@@ -24,8 +24,8 @@
                 switch (secim)
                 {
                     case 1: ks.KullaniciSil();break;
-                    case 2: ks.HesapKilitle();break;
-                    case 3: ks.HesapKilidiniAc();break;
+                    case 2: ks.HesapKilitle(aktifKullanici);break;
+                    case 3: ks.HesapKilidiniAc(aktifKullanici);break;
                     case 0: Console.WriteLine("Cıkıs yapılıyor...");return;
                     default:Console.WriteLine("lütfen geçerli bir secim giriniz."); break;
                 }
