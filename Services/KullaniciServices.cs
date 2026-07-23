@@ -4,6 +4,7 @@ namespace Banka
     public class KullaniciServices
     {
         private List<Kullanici> kullanicilar = new List<Kullanici>();
+        BankaServices bs = new BankaServices();
 
         public KullaniciServices() 
         { 
@@ -236,8 +237,7 @@ namespace Banka
             }
                 kullanici.KilitliMi=true;
                 Console.WriteLine("Kullanıcı kilitlendi.");
-                Islem islem = new Islem(IslemTipi.KilitKaldir,DateTime.Now,0,$"Admin {kullanici.KullaniciNo} Nolu Hesabı Kilitledi.");
-                aktifKullanici.IslemGecmisi.Add(islem);
+                bs.IslemEkle(aktifKullanici,IslemTipi.KilitAc, "Admin hesabı kilitledi");
                 return;
         }
         public void HesapKilidiniAc(Kullanici aktifKullanici)
@@ -268,8 +268,7 @@ namespace Banka
             }
                 kullanici.KilitliMi=false;
                 Console.WriteLine("Kullanıcı kilidi açıldı.");
-                Islem islem = new Islem(IslemTipi.KilitKaldir,DateTime.Now,0,$"Admin {kullanici.KullaniciNo} Nolu Hesabı Kilitledi.");
-                aktifKullanici.IslemGecmisi.Add(islem);
+                bs.IslemEkle(aktifKullanici,IslemTipi.KilitAc, "Admin hesabı kilidi açıldı.");
                 return;
         }
        public List<Kullanici> Kullanicilar

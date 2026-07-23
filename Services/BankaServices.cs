@@ -2,6 +2,11 @@ namespace Banka
 {
     public class BankaServices
     {
+        public void IslemEkle(Kullanici aktifKullanici,IslemTipi tip,string aciklama,decimal tutar=0)
+        {
+            Islem islem = new Islem(tip,DateTime.Now,tutar,aciklama);
+            aktifKullanici.IslemGecmisi.Add(islem);
+        }
         
         public void ParaYatir(Kullanici aktifKullanici)
         {
@@ -20,10 +25,9 @@ namespace Banka
 
             aktifKullanici.Bakiye+=yatirilacakBakiye;
 
-            Islem islem = new Islem(IslemTipi.Yatir,DateTime.Now,yatirilacakBakiye,"Para Yatırıldı");
-            aktifKullanici.IslemGecmisi.Add(islem);
+            IslemEkle(aktifKullanici,IslemTipi.Yatir,"Para Yatırıldı",yatirilacakBakiye);
 
-            Console.WriteLine($"{yatirilacakBakiye} TL başarıyla çekildi.");
+            Console.WriteLine($"{yatirilacakBakiye} TL başarıyla yatırıldı.");
             Console.WriteLine($"Güncel Bakiyeniz : {aktifKullanici.Bakiye} TL");
 
         }
@@ -48,8 +52,7 @@ namespace Banka
             }   
             aktifKullanici.Bakiye-=cekilecekBakiye;
 
-            Islem islem = new Islem(IslemTipi.Cek,DateTime.Now,cekilecekBakiye,"Para Çekildi");
-            aktifKullanici.IslemGecmisi.Add(islem);
+            IslemEkle(aktifKullanici,IslemTipi.Cek,"Para Çekildi",cekilecekBakiye);
 
             Console.WriteLine($"{cekilecekBakiye} TL başarıyla çekildi.");
             Console.WriteLine($"Güncel Bakiyeniz : {aktifKullanici.Bakiye} TL");
@@ -113,6 +116,8 @@ namespace Banka
 
             aktifKullanici.Bakiye-=aktarilacakTutar;
             aliciKullanici.Bakiye+=aktarilacakTutar;
+
+            IslemEkle(aktifKullanici,IslemTipi.HavaleAl,"Para Havale Yapıldı",aktarilacakTutar);
 
             Console.WriteLine($"Güncel Bakiyen : {aktifKullanici.Bakiye}");
             Console.WriteLine($"Gönderilen Tutar {aktarilacakTutar}");
