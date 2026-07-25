@@ -2,7 +2,7 @@
 {
     public class Program
     {
-        public void AdminMenu(Kullanici aktifKullanici , KullaniciServices ks)
+        public async Task AdminMenu(Kullanici aktifKullanici , KullaniciServices ks)
         {
             int secim = 0;
 
@@ -25,9 +25,9 @@
 
                 switch (secim)
                 {
-                    case 1: ks.KullaniciSil();break;
-                    case 2: ks.HesapKilitle(aktifKullanici);break;
-                    case 3: ks.HesapKilidiniAc(aktifKullanici);break;
+                    case 1: await ks.KullaniciSil();break;
+                    case 2: await ks.HesapKilitle(aktifKullanici);break;
+                    case 3: await ks.HesapKilidiniAc(aktifKullanici);break;
                     case 4: ks.KullaniciListele();break;
                     case 5: ks.KililiKullaniciListele();break;
                     case 0: Console.WriteLine("Cıkıs yapılıyor...");return;
@@ -35,9 +35,9 @@
                 }
             }
         }
-        public void MusteriMenu(Kullanici aktifKullanici, KullaniciServices ks)
+        public async Task MusteriMenu(Kullanici aktifKullanici, KullaniciServices ks)
         {
-            BankaServices bk = new BankaServices();
+            BankaServices bk = new BankaServices(ks);
             int secim = 0;
 
             while (true)
@@ -60,9 +60,9 @@
                 switch (secim)
                 {
                     case 1: bk.BakiyeGoster(aktifKullanici);break;
-                    case 2: bk.ParaYatir(aktifKullanici);break;
-                    case 3: bk.ParaCek(aktifKullanici);break;
-                    case 4: bk.Havale(aktifKullanici ,ks.Kullanicilar);break;
+                    case 2: await bk.ParaYatir(aktifKullanici);break;
+                    case 3: await bk.ParaCek(aktifKullanici);break;
+                    case 4: await bk.Havale(aktifKullanici ,ks.Kullanicilar);break;
                     case 5: bk.IslemGecmisi(aktifKullanici);break;
                     case 0: Console.WriteLine("Cıkıs yapılıyor...");return;
                     default:Console.WriteLine("lütfen geçerli bir secim giriniz."); break;
@@ -70,7 +70,7 @@
             }
         }
 
-        public void AnaMenu()
+        public async Task AnaMenu()
         {
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.White;
@@ -100,17 +100,17 @@
                     {
                         if(aktifKullanici.Rol == KullaniciRolu.Admin)
                         {
-                            AdminMenu(aktifKullanici,ks);
+                            await AdminMenu(aktifKullanici,ks);
                         }
                             else
                             {
-                                MusteriMenu(aktifKullanici,ks);
+                               await  MusteriMenu(aktifKullanici,ks);
                             }
                     } 
                      
                     break;
                     
-                    case 2: ks.KullaniciEkle(); break;
+                    case 2: await  ks.KullaniciEkle(); break;
 
                     case 0: return;
 
@@ -120,11 +120,11 @@
         }
 
 
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             Program p = new Program();
 
-            p.AnaMenu();
+            await p.AnaMenu();
         }
     }
 }

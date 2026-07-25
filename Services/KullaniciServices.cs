@@ -4,10 +4,12 @@ namespace Banka
     public class KullaniciServices
     {
         private List<Kullanici> kullanicilar = new List<Kullanici>();
-        BankaServices bs = new BankaServices();
+        private BankaServices bs;
+
 
         public KullaniciServices() 
         { 
+             bs = new BankaServices(this);
             Kullanici musteri = new Kullanici("Ugur","Aslan",1,"5656aslan",1000.00m,KullaniciRolu.Musteri);
             Kullanici musteri2 = new Kullanici("Ibrahim","Aslan",2,"5656aslan",1000.00m,KullaniciRolu.Musteri);
             Kullanici musteri3 = new Kullanici("Musa","Aslan",3,"5656aslan",1000.00m,KullaniciRolu.Musteri);
@@ -18,7 +20,7 @@ namespace Banka
             kullanicilar.Add(musteri3);
             kullanicilar.Add(admin);
         }
-        public void KullaniciEkle()
+        public async Task KullaniciEkle()
         {
             string? ad, soyad, sifre;
             decimal bakiye;
@@ -81,6 +83,7 @@ namespace Banka
 
             Console.WriteLine("Ekleme Basarili!");
 
+            await DosyaServices.Kaydet(Kullanicilar);
         }
         public void KullaniciListele()
         {
@@ -158,7 +161,7 @@ namespace Banka
             Console.WriteLine("Giriş Başarılı.");
             return kullanici;
         }
-        public void KullaniciSil()
+        public async Task KullaniciSil()
         {
             int kullaniciNo;
             Console.WriteLine("kullanici No : ");
@@ -204,12 +207,13 @@ namespace Banka
                 return;
             }
             Console.WriteLine("Menuye Dönülüyor.");
+            await DosyaServices.Kaydet(Kullanicilar);
         }
         private Kullanici? KullaniciBul(int kullaniciNo)
         {
             return kullanicilar.FirstOrDefault(k => k.KullaniciNo == kullaniciNo);
         }
-        public void HesapKilitle(Kullanici aktifKullanici)
+        public async Task HesapKilitle(Kullanici aktifKullanici)
         {
             int kullaniciNo;
             Console.WriteLine("kullanici No : ");
@@ -238,9 +242,10 @@ namespace Banka
                 kullanici.KilitliMi=true;
                 Console.WriteLine("Kullanıcı kilitlendi.");
                 bs.IslemEkle(aktifKullanici,IslemTipi.KilitAc, "Admin hesabı kilitledi");
+                await DosyaServices.Kaydet(Kullanicilar);
                 return;
         }
-        public void HesapKilidiniAc(Kullanici aktifKullanici)
+        public async Task HesapKilidiniAc(Kullanici aktifKullanici)
         {
             int kullaniciNo;
             Console.WriteLine("kullanici No : ");
@@ -269,6 +274,7 @@ namespace Banka
                 kullanici.KilitliMi=false;
                 Console.WriteLine("Kullanıcı kilidi açıldı.");
                 bs.IslemEkle(aktifKullanici,IslemTipi.KilitAc, "Admin hesabı kilidi açıldı.");
+                await DosyaServices.Kaydet(Kullanicilar);
                 return;
         }
        public List<Kullanici> Kullanicilar

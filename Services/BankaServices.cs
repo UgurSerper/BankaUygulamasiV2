@@ -2,13 +2,18 @@ namespace Banka
 {
     public class BankaServices
     {
+        private readonly KullaniciServices ks;
+        public BankaServices(KullaniciServices ks)
+        {
+            this.ks = ks;
+        }
         public void IslemEkle(Kullanici aktifKullanici,IslemTipi tip,string aciklama,decimal tutar=0)
         {
             Islem islem = new Islem(tip,DateTime.Now,tutar,aciklama);
             aktifKullanici.IslemGecmisi.Add(islem);
         }
         
-        public void ParaYatir(Kullanici aktifKullanici)
+        public async Task ParaYatir(Kullanici aktifKullanici)
         {
             decimal yatirilacakBakiye =0;
             Console.Write("Yatırılacak Bakiye : ");
@@ -30,8 +35,10 @@ namespace Banka
             Console.WriteLine($"{yatirilacakBakiye} TL başarıyla yatırıldı.");
             Console.WriteLine($"Güncel Bakiyeniz : {aktifKullanici.Bakiye} TL");
 
+            await DosyaServices.Kaydet(ks.Kullanicilar);
+
         }
-        public void ParaCek(Kullanici aktifKullanici)
+        public async Task ParaCek(Kullanici aktifKullanici)
         {
             decimal cekilecekBakiye =0;
             Console.Write("Cekilecek Bakiye : ");
@@ -56,10 +63,10 @@ namespace Banka
 
             Console.WriteLine($"{cekilecekBakiye} TL başarıyla çekildi.");
             Console.WriteLine($"Güncel Bakiyeniz : {aktifKullanici.Bakiye} TL");
-
+            await DosyaServices.Kaydet(ks.Kullanicilar);
 
         }
-        public void Havale(Kullanici aktifKullanici,List<Kullanici> kullanicilar)
+        public async Task Havale(Kullanici aktifKullanici,List<Kullanici> kullanicilar)
         {
             Kullanici? aliciKullanici = null;
             int aliciKullaniciNo = 0;
@@ -122,10 +129,7 @@ namespace Banka
             Console.WriteLine($"Güncel Bakiyen : {aktifKullanici.Bakiye}");
             Console.WriteLine($"Gönderilen Tutar {aktarilacakTutar}");
 
-        }
-        public void EFT(Kullanici aktifKullanici)
-        {
-            
+            await DosyaServices.Kaydet(ks.Kullanicilar);
         }
         public void BakiyeGoster(Kullanici aktifKullanici)
         {
