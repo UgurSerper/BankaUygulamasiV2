@@ -3,6 +3,7 @@ namespace Banka
     public class BankaServices
     {
         private readonly KullaniciServices ks;
+        private VeritabaniServices vs = new VeritabaniServices();
         public BankaServices(KullaniciServices ks)
         {
             this.ks = ks;
@@ -35,6 +36,7 @@ namespace Banka
             Console.WriteLine($"{yatirilacakBakiye} TL başarıyla yatırıldı.");
             Console.WriteLine($"Güncel Bakiyeniz : {aktifKullanici.Bakiye} TL");
 
+            vs.ParaYatir(aktifKullanici.KullaniciNo,aktifKullanici.Bakiye);
             await DosyaServices.Kaydet(ks.Kullanicilar);
 
         }
@@ -63,6 +65,7 @@ namespace Banka
 
             Console.WriteLine($"{cekilecekBakiye} TL başarıyla çekildi.");
             Console.WriteLine($"Güncel Bakiyeniz : {aktifKullanici.Bakiye} TL");
+            vs.ParaCek(aktifKullanici.KullaniciNo,aktifKullanici.Bakiye);
             await DosyaServices.Kaydet(ks.Kullanicilar);
 
         }
@@ -128,6 +131,8 @@ namespace Banka
 
             Console.WriteLine($"Güncel Bakiyen : {aktifKullanici.Bakiye}");
             Console.WriteLine($"Gönderilen Tutar {aktarilacakTutar}");
+
+            vs.Havale(aktifKullanici.KullaniciNo,aliciKullanici.KullaniciNo,aktarilacakTutar);
 
             await DosyaServices.Kaydet(ks.Kullanicilar);
         }

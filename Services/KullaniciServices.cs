@@ -1,3 +1,4 @@
+using System.Formats.Tar;
 using System.Linq;
 namespace Banka
 {
@@ -5,6 +6,8 @@ namespace Banka
     {
         private List<Kullanici> kullanicilar = new List<Kullanici>();
         private BankaServices bs;
+
+        private VeritabaniServices vs = new VeritabaniServices();
 
 
         public KullaniciServices() 
@@ -84,6 +87,8 @@ namespace Banka
             Console.WriteLine("Ekleme Basarili!");
 
             await DosyaServices.Kaydet(Kullanicilar);
+            VeritabaniServices vt = new VeritabaniServices();
+            vt.KullaniciEkle(yeniKullanici);
         }
         public void KullaniciListele()
         {
@@ -94,7 +99,7 @@ namespace Banka
             }
             foreach(Kullanici kullanici in kullanicilar)
             {
-                KullaniciBilgileriniGetir(kullanici);
+                vs.KullaniciListele();
             }
         }
         public void KililiKullaniciListele()
@@ -111,19 +116,8 @@ namespace Banka
             }
             foreach(Kullanici kullanici in kullanicilar.Where(k => k.KilitliMi))
             {
-               KullaniciBilgileriniGetir(kullanici);
+               vs.KullaniciListele();
             }
-        }
-        private void KullaniciBilgileriniGetir(Kullanici kullanici)
-        {
-                Console.WriteLine("------------------------------------------------------");
-                Console.WriteLine($"Kullanici Adi : {kullanici.Ad}");
-                Console.WriteLine($"Kullanici Soyadi : {kullanici.Soyad}");
-                Console.WriteLine($"Kullanici Numarası : {kullanici.KullaniciNo}");
-                Console.WriteLine($"Kullanici Bakiyesi : {kullanici.Bakiye}");
-                Console.WriteLine($"Kullanici Olsturma Tarihi: {kullanici.OlusturmaTarihi}");
-                Console.WriteLine($"Kullanici Rolu : {kullanici.Rol}");
-                Console.WriteLine($"Hesap Kilitli Mi : {kullanici.KilitliMi}");
         }
         public Kullanici GirisYap()
         {
@@ -151,7 +145,7 @@ namespace Banka
                 return null;
             }
 
-            Kullanici? kullanici = kullanicilar.FirstOrDefault(k => k.KullaniciNo == kullaniciNo && k.Sifre == sifre);
+            Kullanici? kullanici = vs.GirisYap(kullaniciNo , sifre);
 
             if(kullanici == null)
             {
@@ -194,6 +188,7 @@ namespace Banka
             if(secim == 1)
             {
                 kullanicilar.Remove(kullanici);
+                vs.KullaniciSil(kullanici);
                 Console.WriteLine("Kullanıcı başarıyla silindi.");
             }
             else if(secim == 2)
@@ -242,6 +237,7 @@ namespace Banka
                 kullanici.KilitliMi=true;
                 Console.WriteLine("Kullanıcı kilitlendi.");
                 bs.IslemEkle(aktifKullanici,IslemTipi.KilitAc, "Admin hesabı kilitledi");
+                vs.HesapKilitle(kullanici.KullaniciNo);
                 await DosyaServices.Kaydet(Kullanicilar);
                 return;
         }
@@ -274,6 +270,7 @@ namespace Banka
                 kullanici.KilitliMi=false;
                 Console.WriteLine("Kullanıcı kilidi açıldı.");
                 bs.IslemEkle(aktifKullanici,IslemTipi.KilitAc, "Admin hesabı kilidi açıldı.");
+                vs.HesapKilitAc(kullanici.KullaniciNo);
                 await DosyaServices.Kaydet(Kullanicilar);
                 return;
         }
