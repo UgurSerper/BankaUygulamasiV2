@@ -11,6 +11,7 @@ namespace Banka
         public void IslemEkle(Kullanici aktifKullanici,IslemTipi tip,string aciklama,decimal tutar=0)
         {
             Islem islem = new Islem(tip,DateTime.Now,tutar,aciklama);
+            vs.IslemGecmisi(aktifKullanici.KullaniciNo,tip,DateTime.Now,tutar,aciklama);
             aktifKullanici.IslemGecmisi.Add(islem);
         }
         

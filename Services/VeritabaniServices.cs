@@ -271,5 +271,30 @@ namespace Banka
                 Console.WriteLine(ex.Message);
             }
         }
+        public void IslemGecmisi(int kullanicinNo,IslemTipi tip , DateTime tarih,decimal tutar , string aciklama)
+        {
+            try
+            {
+                using SqlConnection cn = new SqlConnection(cstr);
+                cn.Open();
+                using SqlCommand cmdIslem = new SqlCommand("INSERT INTO islemler (islem_tip,tarih,tutar,aciklama) VALUES (@tip,@tarih,@tutar,@aciklama)",cn);
+                
+                cmdIslem.Parameters.AddWithValue("@id",kullanicinNo);
+                cmdIslem.Parameters.AddWithValue("@tip",(int)tip);
+                cmdIslem.Parameters.AddWithValue("@tarih",tarih);
+                cmdIslem.Parameters.AddWithValue("@tutar",tutar);
+                cmdIslem.Parameters.AddWithValue("@aciklama",aciklama);
+
+                int eklendiMi = cmdIslem.ExecuteNonQuery();
+                if (eklendiMi == 1)
+                {
+                    Console.WriteLine("işlem kaydedildi.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }

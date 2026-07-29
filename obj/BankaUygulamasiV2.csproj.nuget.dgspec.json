@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Uğur Serper Aslan\\Desktop\\C# programlari\\BankaUygulamasiV2\\BankaUygulamasiV2.csproj": {}
+    "C:\\Users\\MOBİLBİL\\Desktop\\ss\\BankaUygulamasiV2\\BankaUygulamasiV2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Uğur Serper Aslan\\Desktop\\C# programlari\\BankaUygulamasiV2\\BankaUygulamasiV2.csproj": {
+    "C:\\Users\\MOBİLBİL\\Desktop\\ss\\BankaUygulamasiV2\\BankaUygulamasiV2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Uğur Serper Aslan\\Desktop\\C# programlari\\BankaUygulamasiV2\\BankaUygulamasiV2.csproj",
+        "projectUniqueName": "C:\\Users\\MOBİLBİL\\Desktop\\ss\\BankaUygulamasiV2\\BankaUygulamasiV2.csproj",
         "projectName": "BankaUygulamasiV2",
-        "projectPath": "C:\\Users\\Uğur Serper Aslan\\Desktop\\C# programlari\\BankaUygulamasiV2\\BankaUygulamasiV2.csproj",
-        "packagesPath": "C:\\Users\\Uğur Serper Aslan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Uğur Serper Aslan\\Desktop\\C# programlari\\BankaUygulamasiV2\\obj\\",
+        "projectPath": "C:\\Users\\MOBİLBİL\\Desktop\\ss\\BankaUygulamasiV2\\BankaUygulamasiV2.csproj",
+        "packagesPath": "C:\\Users\\MOBİLBİL\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MOBİLBİL\\Desktop\\ss\\BankaUygulamasiV2\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Uğur Serper Aslan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\MOBİLBİL\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -73,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
